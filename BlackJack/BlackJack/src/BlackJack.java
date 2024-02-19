@@ -33,7 +33,7 @@
             Croupier.totalValueCroupierFinal = 0;
 
         }
-        public  static void CroupierWind()
+        public  static void CroupierWin()
         {
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("You Lose  :" + " <Total> "+"( "+Player.totalValuePlayer+" )");

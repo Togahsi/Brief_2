@@ -5,6 +5,7 @@ public class Main
     //=======================================================================
     public static void hitPlayer()
     {
+
         Card.CardInfo ObPlayer = Card.randomOneCard();
         int Print_ValueCardPly = ObPlayer.getCardValue();//just for print
         String Print_TypeCardPly = ObPlayer.getCardType();//just for print

@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
+
         Scanner cin = new Scanner(System.in);
         int Key;
         int myBet;
@@ -19,16 +21,19 @@ public class App {
                     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     case 1:
                         System.out.println("How Much Do You Want To Bet For This Game : ");
-                        if (cin.hasNextInt()) {
+                        if (cin.hasNextInt())
+                        {
                             myBet = cin.nextInt();
                             if (myBet > Player.coins) {
                                 System.out.println("You Do Not Have That much Coins");
-                            } else if (Player.coins <= 0)
+                            }
+                            else if (Player.coins <= 0)
                             {
                                 System.out.println("You Lose All your Coins");
                                 Key = 0;
                             }
-                            else {
+                            else //GET 2 CARDS FOR PLAYER AND CROUPIER
+                            {
                                 System.out.println("************* The player Takes 2 cards : ****************");
                                 Main.hitPlayer();
                                 Main.hitPlayer();
@@ -40,12 +45,14 @@ public class App {
                                 Main.hitCroupier();
                                 System.out.println("********************************************************");
 
+                                //check the values
                                 if (Player.totalValuePlayer == 21) {
                                     BlackJack.TheBlackJack();
                                     Player.coins += myBet;
-                                    Key = 2;
+                                    Key = 0;
                                 }
 
+                               //HIT OR STAND
                                 boolean isPlaying = true;
                                 int PlayKey;
                                 do {
@@ -56,69 +63,89 @@ public class App {
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                        //hit
                                         case 1:
+                                            System.out.println("************* The player : ****************");
                                             Main.hitPlayer();
-                                            if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal < 21) {
-                                                BlackJack.PlayerWin();
-                                                Player.coins += myBet;
-                                                isPlaying = false;
-                                            } else if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal > 21)
-                                            {
-                                                BlackJack.PlayerWin();
-                                                Player.coins += myBet;
-                                                isPlaying = false;
-                                            } else if (Player.totalValuePlayer > 21 && Croupier.totalValueCroupierFinal <= 21)
-                                            {
-                                                BlackJack.CroupierWind();
-                                                Player.coins -= myBet;
-                                                isPlaying = false;
-                                            } else if (Player.totalValuePlayer < 21 && Croupier.totalValueCroupierFinal == 21)
-                                            {
-                                                BlackJack.CroupierWind();
-                                                Player.coins -= myBet;
-                                                isPlaying = false;
-                                            } else if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal == 21)
-                                            {
-                                                BlackJack.NowinNolose();
-                                                isPlaying = false;
-                                            }
+                                            System.out.println("value : "+ Player.totalValuePlayer);
+                                            System.out.println("**************************µµµ****************");
+                                                 if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal < 21)
+                                                 {
+                                                       BlackJack.PlayerWin();
+                                                       Player.coins += myBet;
+                                                       isPlaying = false;
+                                                 }
+                                                 else if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal > 21)
+                                                 {
+                                                      BlackJack.PlayerWin();
+                                                      Player.coins += myBet;
+                                                      isPlaying = false;
+                                                 }
+                                                 else if (Player.totalValuePlayer > 21 && Croupier.totalValueCroupierFinal <= 21)
+                                                 {
+                                                        BlackJack.CroupierWin();
+                                                        Player.coins -= myBet;
+                                                        isPlaying = false;
+                                                 }
+                                                 else if (Player.totalValuePlayer < 21 && Croupier.totalValueCroupierFinal == 21)
+                                                 {
+                                                        BlackJack.CroupierWin();
+                                                        Player.coins -= myBet;
+                                                        isPlaying = false;
+                                                }
+                                                 else if (Player.totalValuePlayer == 21 && Croupier.totalValueCroupierFinal == 21)
+                                                {
+                                                        BlackJack.NowinNolose();
+                                                        isPlaying = false;
+                                                }
                                             break;
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+                                        //Stand
                                         case 2:
                                             while (Croupier.totalValueCroupierFinal <= 17)
                                             {
-                                                System.out.println("*****************************************");
+                                                System.out.println("************* Croupier: ****************");
                                                 Main.hitCroupier();
                                             }
 
                                             if (Croupier.totalValueCroupierFinal > 21) {
-                                                BlackJack.PlayerWin(); // Player wins because Croupier busted
+                                                BlackJack.PlayerWin(); // Player wins
                                                 Player.coins += myBet;
-                                            } else if (Croupier.totalValueCroupierFinal >= Player.totalValuePlayer) {
-                                                BlackJack.CroupierWind();
+                                                isPlaying = false;
+                                            }
+                                            else if (Croupier.totalValueCroupierFinal >= Player.totalValuePlayer) {
+                                                BlackJack.CroupierWin();
                                                 Player.coins -= myBet;
-                                            } else {
+                                                isPlaying = false;
+                                            }
+                                            else
+                                            {
                                                 BlackJack.PlayerWin();
                                                 Player.coins += myBet;
+                                                isPlaying = false;
                                             }
 
-                                            isPlaying = false;
                                             break;
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
                                         default:
                                             System.out.println("Error Your Choice is Out of Range ");
                                             isPlaying = false;
                                             break;
                                     }
-                                } while (isPlaying);
+                                }
+                                while (isPlaying);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             System.out.println("Invalid input. Please enter a valid integer for your bet.");
                             cin.next(); // consume invalid input
                         }

@@ -24,7 +24,8 @@ public class Card
         public String getCardType() {
             return cardType;
         }
-          }
+
+         }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public static CardInfo randomOneCard() {
